@@ -1,0 +1,43 @@
+## **Transport**
+
+How did you commute to work today?
+
+- Walking or running (2 g CO2/km)
+- Cycling (5 g CO2/km)
+- Electric scooter or bike-sharing (18 g CO2/km)
+- Public transport or electric car (30 g CO2/km)
+- Hybrid car or motorcycle (100 g CO2/km)
+- Car  (192 g CO2/km)
+- If you car-pooled, number of passengers:
+
+ What was your total commute distance (in km)?
+
+## **Food**
+
+What type of meal did you have for lunch today?
+
+- Vegan (500 g CO2)
+- Vegetarian (dairy/eggs included) (1200 g CO2)
+- Pescatarian (fish/seafood) (1700 g CO2)
+- White meat (chicken, turkey, etc.) (2100 g CO2)
+- Red meat (beef, lamb, pork) (3800 g CO2)
+1. How local was your meal? (0-100% scale)(100% local reduces the meal's CO2 by 20%)
+2. How seasonal were the ingredients? (0-100% scale)(100% seasonal reduces the meal's CO2 by 15%)
+3. What percentage of your meal was organic? (0-100% scale)(100% organic reduces the meal's CO2 by 25%)
+
+## **Waste**
+
+Question: How did you manage your waste today?
+
+- Recycled all possible materials (-100 g CO2)
+- Used reusable water bottle (-20 g CO2)
+- Avoided single-use plastics (-30 g CO2 per item avoided)
+
+## **Additional Eco-friendly Actions**
+
+Did you participate in any of these eco-friendly actions today? (Select all that apply)
+
+- Attended a sustainability meeting or workshop (-300 g CO2)
+- Suggested an eco-friendly initiative (-200 g CO2)
+- Chose a virtual meeting over travel (-1000 g CO2 per hour of travel avoided)
+- Used eco-friendly office supplies (-50 g CO2 per item)
