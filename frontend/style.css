@@ -1,80 +1,59 @@
-/* General Reset for Centering */
-body {
+/* General Reset */
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Ensure it takes up the full screen height */
-    background-color: #f0f9f4; /* Eco-friendly green background */
-    color: #333; /* Text color */
+    box-sizing: border-box;
   }
   
-  /* Universal container styling */
-  .container {
-    width: 90%;
-    max-width: 600px;
-    text-align: center;
-    background: #fff; /* White background for components */
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    border-radius: 12px; /* Rounded corners */
+  /* Body Style */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f9f4; /* Eco-friendly background */
   }
   
-  h1, h2, h3 {
-    color: #4CAF50; /* Eco-green color */
-    margin-bottom: 20px;
-  }
-  
+  /* Button Styles */
   button {
-    padding: 10px 20px;
-    font-size: 16px;
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
     color: white;
-    background-color: #4CAF50;
+    background-color: #4caf50; /* Eco-green color */
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    margin: 10px 0;
+    transition: background-color 0.3s ease;
   }
   
   button:hover {
     background-color: #45a049;
   }
   
-  input, textarea {
+  button:focus {
+    outline: none;
+  }
+  
+  /* Form Elements */
+  input, select, textarea {
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
-    border: 2px solid #4CAF50;
+    margin-bottom: 15px;
+    border: 2px solid #4caf50;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 1rem;
   }
   
-  textarea {
-    resize: none;
-  }
-  
-  form label {
-    display: block;
-    text-align: left;
-    margin-bottom: 5px;
-    font-size: 14px;
+  label {
+    font-size: 0.9rem;
     color: #555;
   }
   
-  /* Error message styling */
-  #error-message {
-    color: red;
-    margin-top: 10px;
-  }
-  
-  /* Response box styling for ChatGPT */
-  .response-box {
-    margin-top: 20px;
+  /* Container Styles */
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
     padding: 20px;
-    background-color: #f9f9f9;
-    border: 2px solid #4CAF50;
-    border-radius: 8px;
   }
   

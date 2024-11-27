@@ -1,58 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Main Page</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="container">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Main Page</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Fullpage.js CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css" />
+</head>
+<body>
+  <div id="fullpage">
+    <!-- Section 1: Welcome Section -->
+    <div class="section" id="welcome-section">
       <h1 id="welcome-message">Welcome!</h1>
-
-      <!-- Navigation Buttons -->
-      <button onclick="window.location.href='log.html'">Add New Log</button>
-      <button onclick="window.location.href='score.html'">View My Score</button>
-      <button onclick="window.location.href='gpt.html'">Eco Chat</button>
+      <a href="#log-form-transport" class="btn btn-primary">Go to Log Form</a>
+      <a href="#questlog-section" class="btn btn-secondary">Go to Questlog</a>
     </div>
 
-    <script>
-      async function verifyUser() {
-        try {
-          const token = localStorage.getItem('authToken');
+    <!-- Section 2: Log Form -->
+    <div class="section" id="log-form-transport">
+      <h2>Add New Log Entry for Transport</h2>
+      <form id="log-form-transport">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
 
-          if (!token) {
-            alert('Unauthorized! Please log in.');
-            window.location.href = '/index.html';
-            return;
-          }
+        <label for="co2">CO2 Emissions (kg):</label>
+        <input type="text" id="co2" name="co2" required />
 
-          const response = await fetch('http://localhost:5005/auth/verify', {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+        <label for="points">Points:</label>
+        <input type="number" id="points" name="points" required />
 
-          if (response.ok) {
-            const userData = await response.json();
-            document.getElementById(
-              'welcome-message'
-            ).innerText = `Welcome, ${userData.name}!`;
-          } else {
-            alert('Session expired. Please log in again.');
-            localStorage.removeItem('authToken');
-            window.location.href = '/index.html';
-          }
-        } catch (err) {
-          console.error('Error verifying user:', err);
-          alert('An error occurred. Please log in again.');
+        <button type="submit">Submit Log</button>
+      </form>
+      <a href="#questlog-section" class="btn btn-primary">Go to Questlog</a>
+    </div>
+
+    <!-- Section 3: Quest Log -->
+    <div class="section" id="questlog-section">
+      <h2>Quest Log</h2>
+      <p>Your progress in the quests will be displayed here.</p>
+      <!-- Additional quest log content can go here -->
+      <a href="#log-form-transport" class="btn btn-primary">Go to Log Form</a>
+      <a href="#welcome-section" class="btn btn-secondary">Go to Welcome</a>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
+  <script>
+    // Initialize fullpage.js
+    new fullpage('#fullpage', {
+      autoScrolling: true,
+      scrollHorizontally: false,
+      navigation: true,
+      showActiveTooltip: true,
+    });
+
+    async function verifyUser() {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        alert('Unauthorized! Please log in.');
+        window.location.href = '/index.html';
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:5005/auth/verify', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          document.getElementById('welcome-message').innerText = `Welcome, ${userData.name}!`;
+        } else {
+          alert('Session expired. Please log in again.');
           localStorage.removeItem('authToken');
           window.location.href = '/index.html';
         }
+      } catch (err) {
+        console.error('Error verifying user:', err);
+        alert('An error occurred. Please log in again.');
+        localStorage.removeItem('authToken');
+        window.location.href = '/index.html';
       }
+    }
 
-      verifyUser();
-    </script>
-  </body>
+    verifyUser();
+  </script>
+</body>
 </html>
