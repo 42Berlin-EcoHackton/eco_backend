@@ -1,141 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f0f9f4; /* Eco-friendly background */
-    }
-
-    .login-container {
-      width: 90%;
-      max-width: 400px;
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-
-    h2 {
-      color: #4CAF50; /* Eco-green color */
-      margin-bottom: 20px;
-      font-size: 1.8rem;
-    }
-
-    form div {
-      margin-bottom: 15px;
-      text-align: left;
-    }
-
-    label {
-      display: block;
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 5px;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      border: 2px solid #4CAF50;
-      border-radius: 8px;
-      font-size: 1rem;
-    }
-
-    button {
-      width: 100%;
-      padding: 10px;
-      font-size: 1rem;
-      color: #fff;
-      background-color: #4CAF50;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
-    #error-message {
-      color: red;
-      margin-top: 10px;
-      font-size: 0.9rem;
-    }
-  </style>
-</head>
-<body>
-  <div class="login-container">
-    <h2>Login</h2>
-    <form id="login-form">
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" required />
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required />
-      </div>
-      <button type="submit">Login</button>
-      <p id="error-message"></p>
-    </form>
-  </div>
-
-  <script>
-    // Get the form and error message elements
-    const form = document.getElementById('login-form');
-    const errorMessage = document.getElementById('error-message');
-
-    // Add event listener for form submission
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault(); // Prevent form from submitting the default way
-
-      const email = form.email.value;
-      const password = form.password.value;
-
-      // Prepare the login data
-      const loginData = {
-        email,
-        password
-      };
-
-      try {
-        // Make the POST request to the backend
-        const response = await fetch('http://localhost:5005/auth/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(loginData),
-        });
-
-        const result = await response.json();
-
-        if (response.status === 200) {
-          // Store the JWT token in localStorage
-          localStorage.setItem('authToken', result.authToken);
-
-          // Redirect to the main page (main.html)
-          window.location.href = '/main.html';
-        } else {
-          // Show error message from backend
-          errorMessage.textContent = result.message || 'Login failed, please try again.';
-        }
-      } catch (error) {
-        // Handle unexpected errors
-        errorMessage.textContent = 'Something went wrong. Please try again later.';
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f9f4; /* Eco-friendly background */
       }
-    });
-  </script>
-</body>
+
+      .login-container {
+        width: 90%;
+        max-width: 400px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      h2 {
+        color: #4caf50; /* Eco-green color */
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+      }
+
+      form div {
+        margin-bottom: 15px;
+        text-align: left;
+      }
+
+      label {
+        display: block;
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 5px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #4caf50;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        color: #fff;
+        background-color: #4caf50;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      #error-message {
+        color: red;
+        margin-top: 10px;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Login</h2>
+      <form id="login-form">
+        <div>
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+        <button type="submit">Login</button>
+        <p id="error-message"></p>
+      </form>
+    </div>
+
+    <script>
+      // Get the form and error message elements
+      const form = document.getElementById('login-form');
+      const errorMessage = document.getElementById('error-message');
+
+      // Add event listener for form submission
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevent form from submitting the default way
+
+        const email = form.email.value;
+        const password = form.password.value;
+
+        // Prepare the login data
+        const loginData = {
+          email,
+          password,
+        };
+
+        try {
+          // Make the POST request to the backend
+          const response = await fetch('http://localhost:5005/auth/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(loginData),
+          });
+
+          const result = await response.json();
+
+          if (response.status === 200) {
+            // Store the JWT token in localStorage
+            localStorage.setItem('authToken', result.authToken);
+
+            // Redirect to the main page (main.html)
+            window.location.href = '/main.html';
+          } else {
+            // Show error message from backend
+            errorMessage.textContent =
+              result.message || 'Login failed, please try again.';
+          }
+        } catch (error) {
+          // Handle unexpected errors
+          errorMessage.textContent =
+            'Something went wrong. Please try again later.';
+        }
+      });
+    </script>
+  </body>
 </html>

@@ -1,31 +1,37 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
 
 const userSchema = new Schema(
   {
     email: {
       type: String,
-      required: [true, "Email is required."],
+      required: [true, 'Email is required.'],
       unique: true,
       lowercase: true,
       trim: true,
     },
     password: {
       type: String,
-      required: [true, "Password is required."],
+      required: [true, 'Password is required.'],
     },
     name: {
       type: String,
-      required: [true, "Name is required."],
+      required: [true, 'Name is required.'],
     },
     role: {
       type: String,
-      enum: ["user", "admin"],
-      default: "user",
+      enum: ['user', 'admin'],
+      default: 'user',
     },
-    log: [
+    transport_log: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Log",
+        ref: 'TransportLog',
+      },
+    ],
+    food_log: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'FoodLog',
       },
     ],
   },
@@ -35,6 +41,6 @@ const userSchema = new Schema(
   }
 );
 
-const User = model("User", userSchema);
+const User = model('User', userSchema);
 
 module.exports = User;

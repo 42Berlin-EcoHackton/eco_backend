@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
 
-const logSchema = new Schema(
+const transportLogSchema = new Schema(
   {
     name: {
       type: String,
@@ -14,7 +14,7 @@ const logSchema = new Schema(
     user: {
       // This references the User model
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
     },
   },
   {
@@ -22,6 +22,6 @@ const logSchema = new Schema(
   }
 );
 
-const Log = model("Log", logSchema);
+const TransportLog = model('TransportLog', transportLogSchema);
 
-module.exports = Log;
+module.exports = TransportLog;

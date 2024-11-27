@@ -1,65 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Log Form</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="container">
-    <h2>Add New Log Entry</h2>
-    <form id="log-form">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log Form</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Add New Log Entry for Transport</h2>
+      <form id="log-form-transport">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
 
-      <label for="co2">CO2 Emissions (kg):</label>
-      <input type="text" id="co2" name="co2" required />
+        <label for="co2">CO2 Emissions (kg):</label>
+        <input type="text" id="co2" name="co2" required />
 
-      <label for="points">Points:</label>
-      <input type="number" id="points" name="points" required />
+        <label for="points">Points:</label>
+        <input type="number" id="points" name="points" required />
 
-      <button type="submit">Submit Log</button>
-    </form>
+        <button type="submit">Submit Log</button>
+      </form>
 
-    <p id="error-message"></p>
-  </div>
+      <p id="error-message"></p>
+    </div>
 
-  <script>
-    const form = document.getElementById('log-form');
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
+    <div class="container">
+      <h2>Add New Log Entry for Food</h2>
+      <form id="log-form-food">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
 
-      const logData = {
-        name: form.name.value,
-        co2: form.co2.value,
-        points: form.points.value,
-        user: localStorage.getItem('userId'),
-      };
+        <label for="co2">CO2 Emissions (kg):</label>
+        <input type="text" id="co2" name="co2" required />
 
-      try {
-        const response = await fetch('http://localhost:5005/log', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-          },
-          body: JSON.stringify(logData),
-        });
+        <label for="points">Points:</label>
+        <input type="number" id="points" name="points" required />
 
-        const result = await response.json();
+        <button type="submit">Submit Log</button>
+      </form>
 
-        if (response.status === 200) {
-          alert('Log entry created!');
-          window.location.href = 'main.html';
-        } else {
-          document.getElementById('error-message').textContent = result.message || 'Error occurred.';
+      <p id="error-message"></p>
+    </div>
+
+    <script>
+      const form = document.getElementById('log-form-transport');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const logData = {
+          name: form.name.value,
+          co2: form.co2.value,
+          points: form.points.value,
+          user: localStorage.getItem('userId'),
+        };
+
+        try {
+          const response = await fetch('http://localhost:5005/log_transport', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+            },
+            body: JSON.stringify(logData),
+          });
+
+          const result = await response.json();
+
+          if (response.status === 200) {
+            alert('Log entry created!');
+            window.location.href = 'main.html';
+          } else {
+            document.getElementById('error-message').textContent =
+              result.message || 'Error occurred.';
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          document.getElementById('error-message').textContent =
+            'Something went wrong.';
         }
-      } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('error-message').textContent = 'Something went wrong.';
-      }
-    });
-  </script>
-</body>
+      });
+    </script>
+    <script>
+      const form2 = document.getElementById('log-form-food');
+      form2.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const logData = {
+          name: form2.name.value,
+          co2: form2.co2.value,
+          points: form2.points.value,
+          user: localStorage.getItem('userId'),
+        };
+
+        try {
+          const response = await fetch('http://localhost:5005/log_food', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+            },
+            body: JSON.stringify(logData),
+          });
+
+          const result = await response.json();
+
+          if (response.status === 200) {
+            alert('Log entry created!');
+            window.location.href = 'main.html';
+          } else {
+            document.getElementById('error-message').textContent =
+              result.message || 'Error occurred.';
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          document.getElementById('error-message').textContent =
+            'Something went wrong.';
+        }
+      });
+    </script>
+  </body>
 </html>
