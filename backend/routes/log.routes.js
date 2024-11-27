@@ -73,4 +73,26 @@ router.delete("/logs/:logId", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
+// GET /score - Get the total score (sum of points) for the current user
+router.get("/score", isAuthenticated, async (req, res, next) => {
+  const userId = req.payload._id;
+
+  try {
+    // Aggregate the points from all logs associated with this user
+    const result = await Log.aggregate([
+      { $match: { user: userId } }, // Match logs for the authenticated user
+      { $group: { _id: null, totalPoints: { $sum: "$points" } } } // Sum the points
+    ]);
+
+    if (result.length > 0) {
+      res.status(200).json({ totalPoints: result[0].totalPoints });
+    } else {
+      res.status(200).json({ totalPoints: 0 }); // If no logs, return 0 points
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Failed to fetch score" });
+  }
+});
+
 module.exports = router;

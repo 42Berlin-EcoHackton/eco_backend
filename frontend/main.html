@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1 id="welcome-message">Welcome!</h1>
+
+    <!-- Navigation Buttons -->
+    <button onclick="window.location.href='log.html'">Add New Log</button>
+    <button onclick="window.location.href='score.html'">View My Score</button>
+    <button onclick="window.location.href='gpt.html'">Eco Chat</button>
+  </div>
+
+  <script>
+    async function verifyUser() {
+      try {
+        const token = localStorage.getItem("authToken");
+
+        if (!token) {
+          alert("Unauthorized! Please log in.");
+          window.location.href = "/index.html"; 
+          return;
+        }
+
+        const response = await fetch("http://localhost:5005/auth/verify", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          document.getElementById("welcome-message").innerText = `Welcome, ${userData.name}!`;
+        } else {
+          alert("Session expired. Please log in again.");
+          localStorage.removeItem("authToken");
+          window.location.href = "/index.html";
+        }
+      } catch (err) {
+        console.error("Error verifying user:", err);
+        alert("An error occurred. Please log in again.");
+        localStorage.removeItem("authToken");
+        window.location.href = "/index.html";
+      }
+    }
+
+    verifyUser();
+  </script>
+</body>
+</html>
